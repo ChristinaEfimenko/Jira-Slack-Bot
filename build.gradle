@@ -36,20 +36,20 @@ plugins {
         maven { url "https://m2proxy.atlassian.com/repository/public" }
     }
 
-mainClassName = "response.BotApplicationKt"
+    mainClassName = "talenttech.response.BotApplicationKt"
 
-jar {
-    manifest {
-        attributes 'Main-Class' : "response.BotApplicationKt"
+    jar {
+        manifest {
+            attributes 'Main-Class' : "talenttech.response.BotApplicationKt"
+        }
+        from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     }
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-}
 
-task stage {
-    dependsOn jar
-}
+    task stage {
+        dependsOn jar
+    }
 
-        dependencies {
+    dependencies {
         ktlint 'com.pinterest.ktlint:ktlint-core:0.42.1'
         implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31'
         implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.8.1'
@@ -62,15 +62,18 @@ task stage {
         implementation group: 'com.ullink.slack', name: 'simpleslackapi', version: '1.3.0'
         implementation group: 'redis.clients', name: 'jedis', version: '3.7.0'
         implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt'
-        implementation group: 'io.ktor', name: 'ktor-server-core', version: '1.6.4'
+        implementation('io.ktor:ktor-server-core:1.6.4')
+        implementation('io.ktor:ktor-gson:1.6.4')
+        testImplementation('io.ktor:ktor-server-tests:1.6.4')
+        implementation('io.ktor:ktor-server-netty:1.6.4')
     }
 
     tasks.withType(Test) {
         useJUnitPlatform()
         systemProperty "junit.jupiter.testinstance.lifecycle.default", "per_class"
         reports {
-            junitXml.enabled = false
-            html.enabled = false
+            junitXml.setEnabled(false)
+            html.setEnabled(false)
         }
     }
 
@@ -80,4 +83,3 @@ task stage {
         classpath = configurations.ktlint
         args "-F", "src/**/*.kt"
     }
-

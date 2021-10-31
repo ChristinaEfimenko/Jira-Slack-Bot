@@ -61,9 +61,9 @@ class JiraCommand {
                 }.toList()
             return ResponseConfig("Task of $userName", attachments)
         }
+    }
 
         class Factory : BotCommandFactory<TaskCommand> {
             override fun create(cache: Cache, jiraConfig: JiraConfig): TaskCommand = TaskCommand(cache, jiraConfig)
         }
-    }
 }

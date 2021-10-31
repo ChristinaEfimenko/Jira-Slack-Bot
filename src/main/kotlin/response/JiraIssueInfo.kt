@@ -5,17 +5,15 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-class JiraIssueInfo {
-
-    fun Routing.route() {
-        get("/") {
-            val token = System.getenv("SLACK_TOKEN")
-            val slack = Slack.getInstance()
-            val response = slack.methods(token).chatPostMessage {
-                it.channel("#слаки")
-                    .text("Hello :wave:")
-            }
-            call.respondText("Response is: $response")
+fun Routing.route() {
+    get("/") {
+        val token = System.getenv("SLACK_TOKEN")
+        val slack = Slack.getInstance()
+        val response = slack.methods(token).chatPostMessage {
+            it.channel("#слаки")
+                .text("Hello :wave:")
         }
+        call.respondText("Response is: $response")
     }
 }
+
