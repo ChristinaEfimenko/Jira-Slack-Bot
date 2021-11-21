@@ -1,1 +1,4 @@
-/.env
+/ngrok.exe
+/.idea/
+/build/
+/.gradle/
