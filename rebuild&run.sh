@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
+rm ./BoltBot.jar
 gradle clean runShadow
-mv ./build/libs/* ./
-java -jar ./BoltBotJava-all.jar
+mv ./build/libs/BoltBotJava-all.jar ./BoltBot.jar
