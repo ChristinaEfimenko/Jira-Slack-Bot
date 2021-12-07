@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-rm ./bot.jar
+rm ./BoltBotJava-all.jar
 chmod +x ./gradlew
 ./gradlew clean runShadow
-mv ./build/libs/BoltBotJava-all.jar ./bot.jar
+mv ./build/libs/* ./
 
