@@ -17,9 +17,7 @@ pipeline {
         stage("Run") {
             steps {
                 sh '''
-                    docker run \                
-                    --name slackbot \
-                    slackbot
+                    docker run --name slackbot slackbot                     
                 '''
             }
         }
