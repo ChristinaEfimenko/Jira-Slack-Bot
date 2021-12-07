@@ -17,7 +17,7 @@ pipeline {
         stage("Run") {
             steps {
                 sh '''
-                    docker run -it \
+                    docker run \
                     -- rm \
                     --name slackbot
                     slackbot
