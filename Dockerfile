@@ -1,7 +1,7 @@
 FROM openjdk:11-jdk AS builder
 
 RUN mkdir app
-COPY ./rebuild-run.sh /usr/local/bin
+COPY ./rebuild-run.sh ./
 RUN sh rebuild-run.sh
 COPY ./build/libs/BoltBotJava-all.jar /app/bot.jar
 WORKDIR /app
