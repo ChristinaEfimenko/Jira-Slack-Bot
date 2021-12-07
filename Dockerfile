@@ -5,8 +5,8 @@ COPY . .
 COPY ./rebuild&run.sh /usr/local/bin
 ENTRYPOINT ["rebuild&run.sh"]
 WORKDIR /app
-COPY ./build/libs/BoltBotJava-all.jar /app/BoltBotJava-all.jar
+COPY ./BoltBot.jar /app/BoltBot.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/build/libs/BoltBotJava-all.jar"]
+ENTRYPOINT ["java", "-jar", "/app/BoltBot.jar"]
