@@ -15,7 +15,7 @@ pipeline {
             }
         }
         stage("Run") {
-            script {
+            steps {
                 sh '''
                     docker run -it \
                     -- rm \
