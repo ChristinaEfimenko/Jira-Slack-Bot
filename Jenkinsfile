@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'slackBot_onHold_runner'
+        label 'slackBot_onHold'
     }
     options {
         disableConcurrentBuilds()
@@ -9,18 +9,16 @@ pipeline {
         stage("Build") {
             steps {
                 sh '''
-                    docker rmi -f slackBot
-                    docker build -t slackBot .
+                    docker rm -f slackbot
+                    docker rmi -f slackbot
+                    docker build -t slackbot .
                 '''
             }
         }
         stage("Run") {
-            script {
+            steps {
                 sh '''
-                    docker run -it \
-                    -- rm \
-                    --name slackBot
-                    slackBot
+                    docker run --name slackbot slackbot                     
                 '''
             }
         }

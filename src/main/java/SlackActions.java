@@ -178,6 +178,7 @@ public class SlackActions {
         }
 
         byte[] bodyBytes = blocks().getBytes();
+        System.out.print(new String(bodyBytes, UTF_8));
         //Очищаем список blocks после того как перевели будущее тело запроса в байты
         clearBlockList();
         try {
