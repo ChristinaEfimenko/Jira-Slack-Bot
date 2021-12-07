@@ -192,11 +192,12 @@ public class SlackActions {
             headers.put("Host", "hooks.slack.com");
             headers.put("Authorization", "Bearer " + System.getenv("SLACK_BOT_TOKEN"));
 
-            String req = Unirest.post("https://hooks.slack.com/services/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")
+            String req = Unirest.post(System.getenv("WEBHOOK_B2G"))
                     .headers(headers)
                     .body(new String(bodyBytes, UTF_8))
                     .asString()
                     .getBody();
+            System.out.println(req);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

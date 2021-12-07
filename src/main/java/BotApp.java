@@ -30,7 +30,7 @@ public class BotApp {
 
             }
         };
-        timer.scheduleAtFixedRate(task, 1000, 1000*60*60*24*7);
+        timer.scheduleAtFixedRate(task, 1000, 1000);
         SlackActions.sendProjectIssuesWithWebHook("B2GED");
         //SocketModeApp expects an env variable: SLACK_APP_TOKEN
         new SocketModeApp(slack).start();
