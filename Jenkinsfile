@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                sh '''                 
+                sh '''
+                    docker rm -f slackbot
                     docker rmi -f slackbot
                     docker build -t slackbot .
                 '''
