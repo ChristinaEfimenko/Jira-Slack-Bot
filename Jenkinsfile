@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'test_executor_1'
+        label 'slackBot_onHold'
     }
     options {
         disableConcurrentBuilds()
