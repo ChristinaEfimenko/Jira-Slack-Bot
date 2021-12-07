@@ -1,5 +1,6 @@
 plugins {
     id("application")
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 repositories {
     mavenCentral()
@@ -29,6 +30,15 @@ dependencies {
 application {
     mainClassName = "BotApp"
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'BotApp'
+        )
+    }
+}
+
 run {
     // gradle run -DslackLogLevel=debug
     systemProperty "org.slf4j.simpleLogger.log.com.slack.api", System.getProperty("slackLogLevel")

@@ -19,7 +19,6 @@ public class BotApp {
         slack.command("/yourCommand", CommandHandlers::yourCommandHandler);
          */
         slack.event(AppHomeOpenedEvent.class, EventHandlers::AppHomeOpenedEventHandler);
-
         //В plusDays указать через сколько дней запустить метод первый раз с момента поднятия сервера,
         //withHour() и withMinute() время запуска метода
         long delayInSeconds =  ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).plusDays(2).withHour(9)
@@ -28,12 +27,12 @@ public class BotApp {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
-                SlackActions.sendProjectIssuesWithWebHook("B2GED");
+
             }
         };
-        timer.scheduleAtFixedRate(task, delayInSeconds*1000, 1000*60*60*24*7);
+        timer.scheduleAtFixedRate(task, 1000, 1000*60*60*24*7);
+        SlackActions.sendProjectIssuesWithWebHook("B2GED");
         //SocketModeApp expects an env variable: SLACK_APP_TOKEN
         new SocketModeApp(slack).start();
     }
-
 }

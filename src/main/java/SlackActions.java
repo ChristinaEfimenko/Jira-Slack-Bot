@@ -11,6 +11,7 @@ import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import static BlockKit.BlocksAndElements.*;
@@ -146,13 +147,16 @@ public class SlackActions {
         return issueShortList;
     }
 
-    public static void sendProjectIssuesWithWebHook(String project) {
+    public static void sendProjectIssuesWithWebHook(String project) throws UnsupportedEncodingException {
         ArrayList issues = SlackActions.getIssuesFromProject(project);
         int itemCounter = 1;
         //Вызов метода *Block() из BlockAndElements добавляет блок в поле класса blocks
         //Вызывать методы блоков строго в том порядке, в котором они должны быть отображены
         headerBlock("ON HOLD");
         dividerBlock();
+
+        // Кодировка для кириллицы Cp1251, не потерять эту мысль!
+        String text = new String("*Последний комментарий*".getBytes("Cp1251"), UTF_8);
         for (Object issue : issues) {
             JSONObject innerObj = (JSONObject) issue;
             String self = innerObj.get("self").toString();
@@ -162,16 +166,17 @@ public class SlackActions {
             String comment = innerObj.get("comment").toString();
 
             sectionBlock(
-                    //Блок включает в себя элементы, совместимость элементов с блоками можно проверить в песочнце:
+                    //Блок включает в себя элементы, совместимость элементов с блоками можно проверить в песочнице:
                     //https://app.slack.com/block-kit-builder/TDN2PEPQB#%7B%22blocks%22:%5B%5D%7D
                 markdownTextEl("<" + self + "|" + itemCounter + ".>    <" + self + "|*" + key + "*>     <" + self + "|" + issue_name + ">"),
                 fieldsEl(
-                    markdownTextEl("Последний комментарий\\n\\n*" + comment_author + "*\\n\\n>" + comment)
+                    markdownTextEl(text + "\\n\\n*" + comment_author + "*\\n\\n>" + comment)
                 )
             );
             dividerBlock();
             itemCounter++;
         }
+
         byte[] bodyBytes = blocks().getBytes();
         //Очищаем список blocks после того как перевели будущее тело запроса в байты
         clearBlockList();
@@ -187,7 +192,7 @@ public class SlackActions {
             headers.put("Host", "hooks.slack.com");
             headers.put("Authorization", "Bearer " + System.getenv("SLACK_BOT_TOKEN"));
 
-            String req = Unirest.post("https://hooks.slack.com/services/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")
+            String req = Unirest.post("https://hooks.slack.com/services/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")
                     .headers(headers)
                     .body(new String(bodyBytes, UTF_8))
                     .asString()
