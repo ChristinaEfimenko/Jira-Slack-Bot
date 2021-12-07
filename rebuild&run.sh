@@ -3,5 +3,4 @@
 rm ./BoltBotJava-all.jar
 chmod +x ./gradlew
 ./gradlew clean runShadow
-mv ./build/libs/* ./
 
