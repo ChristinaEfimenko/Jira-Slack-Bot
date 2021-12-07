@@ -9,5 +9,4 @@ COPY ./ /app
 
 EXPOSE 8080
 
-COPY env_file .
 ENTRYPOINT ["rebuild&run.sh"]
